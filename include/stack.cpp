@@ -1,6 +1,6 @@
 #include "stack.h"
 
-template <typename T>//êîïèðîâàíèå è âûäåëåíèå ïàìÿòè 
+template <typename T> 
 auto stack<T>::mem_copy(size_t count_m, size_t array_size_m, const T * tmp)->T* {
 template <typename T>
 auto mem_copy(size_t count_m, size_t array_size_m, const T * tmp)->T* {
