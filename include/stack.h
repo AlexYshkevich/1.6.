@@ -17,7 +17,6 @@
   	auto operator=(const stack&tmp)->stack&;
   	auto print()->void;
   private:
-         auto mem_copy(size_t count_m, size_t array_size_m, const T * tmp)->T*;
   	T * array_;
   	size_t array_size_;
   	size_t count_;
