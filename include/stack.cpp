@@ -19,11 +19,11 @@ inline stack<T>::stack() :count_(0), array_size_(0), array_(nullptr) {};
 template <typename T> 
 inline auto stack<T>::push(T const &com)->void {
 		if (count_ == array_size_) {
-			array_size_ *= 2;
-			T *tmp = mem_copy(count_,array_size_,array_);
+			size_t size = array_size_ * 2 + (array_size_ == 0);
+			T *tmp = mem_copy(count_,size,array_);
 			delete[] array_;
 			array_ = tmp;
-
+			array_size_ = size;
 		}
 		array_[count_] = com;
 		count_++;
