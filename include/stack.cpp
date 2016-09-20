@@ -50,6 +50,7 @@ inline auto stack<T>::count() const noexcept->size_t {
 	return count_;
 	
 	template <typename T>
+	
 T stack<T>::pop()
 {
 	if (count_ <= 0)
@@ -60,11 +61,6 @@ T stack<T>::pop()
 }
 }
 
-template <typename T> 
-inline auto stack<T>::pop()->T {
-	if (count_ == 0) throw logic_error("Empty!");
-	return --count_;
-}
 
 template <typename T> 
 inline auto stack<T>::top() const->T& {
