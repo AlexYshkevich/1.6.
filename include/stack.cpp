@@ -55,7 +55,7 @@ inline auto stack<T>::count() const noexcept->size_t {
 }
 
 template <typename T>
-T stack<T>::pop()
+inline auto stack<T>::pop()->T 
 {
 if (count_ == 0)
 {
