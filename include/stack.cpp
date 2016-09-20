@@ -16,18 +16,17 @@ inline stack<T>::~stack()
 template <typename T> 
 inline stack<T>::stack() :count_(0), array_size_(0), array_(nullptr) {};
 
-template <typename T> 
-inline auto stack<T>::push(T const &com)->void {
-		if (count_ == array_size_) {
-			size_t size = array_size_ * 2 + (array_size_ == 0);
+template <typename T>//вставка элемента в стэк 
+inline auto stack<T>::push(T const &val)->void {
+	if (count_ == array_size_) {
+			size_t size = array_size_ * 2+ (array_size_==0);
 			T *tmp = mem_copy(count_,size,array_);
 			delete[] array_;
 			array_ = tmp;
-			array_size_ = size;
+			array_size_=size;
 		}
-		array_[count_] = com;
+		array_[count_] = val;
 		count_++;
-
 	}
 
 template <typename T> 
