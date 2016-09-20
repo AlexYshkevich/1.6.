@@ -33,17 +33,15 @@ template <typename T>
 inline stack<T>::stack(const stack&tmp) :count_(tmp.count_), array_size_(tmp.array_size_), array_(mem_copy(tmp.count_, tmp.array_size_, tmp.array_)) {}
 	
 
-template <typename T>  
+template <typename T>//перегрузка оператора присваивания 
 inline auto stack<T>::operator=(const stack&tmp)->stack& {
 	if (this != &tmp) {
 		delete[] array_;
 		count_ = tmp.count_;
 		array_size_ = tmp.array_size_;
-		array_ = new T[array_size_];
-		copy(tmp.array_, tmp.array_ + count_, array_);
+		array_ =mem_copy(tmp.count_, tmp.array_size_, tmp.array_);
 	}
 	return *this;
-}
 
 template <typename T> 
 inline auto stack<T>::count() const noexcept->size_t {
