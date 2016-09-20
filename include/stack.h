@@ -1,8 +1,5 @@
-#pragma once
 #include <iostream>
-
 using namespace std;
-
 template <typename T>
 class stack
 {
@@ -15,7 +12,6 @@ public:
 	auto top() const->T&;
 	~stack();
 	auto operator=(const stack&tmp)->stack&;
-	auto print()->void;
 private:
 	T * array_;
 	size_t array_size_;
