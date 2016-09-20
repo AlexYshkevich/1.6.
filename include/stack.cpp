@@ -52,7 +52,7 @@ inline auto stack<T>::count() const noexcept->size_t {
 }
 
 template <typename T>// уменьшение count_ 
-inline auto stack<T>::pop()->T {
+inline auto stack<T>::pop()->void {
 	if (count_ == 0) throw logic_error("Empty!");
 	return array_[--count_];
 }
