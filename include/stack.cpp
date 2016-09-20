@@ -1,4 +1,6 @@
 #include "stack.h"
+#ifndef STACK_CPP
+#define STACK_CPP
 
 template <typename T>
 auto mem_copy(size_t count_m, size_t array_size_m, const T * tmp)->T* {
@@ -52,14 +54,6 @@ inline auto stack<T>::count() const noexcept->size_t {
 	return count_;
 }
 
-
-
-
-
-
-
-
-
 template <typename T>
 T stack<T>::pop()
 {
@@ -69,12 +63,6 @@ throw std::logic_error("Stack is empty!");
 }
 return array_[--count_];
 }
-
-
-
-
-
-
 
 template <typename T>
 inline auto stack<T>::top() const->T& {
