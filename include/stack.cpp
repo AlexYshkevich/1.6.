@@ -51,15 +51,12 @@ inline auto stack<T>::count() const noexcept->size_t {
 	return count_;
 }
 
-template <typename T>
-inline auto stack<T>::pop() -> void
-{
-	if (count_ == 0)
-	{
-		throw std::logic_error("Stack is empty!");
-	}
-	return array_[--count_];
+template <typename T>// уменьшение count_ 
+inline auto stack<T>::pop()->T {
+	if (count_ == 0) throw logic_error("Empty!");
+	return --count_;
 }
+
 
 template <typename T>
 inline auto stack<T>::top() const->T& {
