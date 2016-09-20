@@ -10,7 +10,7 @@ public:
 	stack(const stack&);
 	auto count() const noexcept->size_t;
 	auto push(T const &)->void;
-	auto pop()->T;
+	auto pop()->void;
 	auto top() const->T&;
 	~stack();
 	auto operator=(const stack&tmp)->stack&;
