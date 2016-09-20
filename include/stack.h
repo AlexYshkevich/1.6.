@@ -1,10 +1,5 @@
 #include <iostream>
-#pragma once
-#ifndef stack.h
-#define stack.h
-#include <cstdlib>
-#include <iostream>
-#include <memory>
+
 
 using namespace std;
 template <typename T>
