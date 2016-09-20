@@ -8,8 +8,6 @@ auto mem_copy(size_t count_m, size_t array_size_m, const T * tmp)->T* {
 	copy(tmp,tmp+count_m,mass);
 	return mass; 
 }
-
-
 template <typename T>
 inline stack<T>::~stack()
 {
@@ -55,9 +53,9 @@ inline auto stack<T>::count() const noexcept->size_t {
 }
 
 template <typename T>
-inline auto stack<T>::pop()->T 
+T stack<T>::pop()
 {
-if (count_ == 0)
+if (count_ <= 0)
 {
 throw std::logic_error("Stack is empty!");
 }
