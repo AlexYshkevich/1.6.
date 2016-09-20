@@ -52,7 +52,7 @@ inline auto stack<T>::count() const noexcept->size_t {
 }
 
 template <typename T>
-T stack<T>::pop()
+inline auto stack<T>::pop() -> void
 {
 	if (count_ == 0)
 	{
@@ -60,7 +60,6 @@ T stack<T>::pop()
 	}
 	return array_[--count_];
 }
-
 
 template <typename T>
 inline auto stack<T>::top() const->T& {
