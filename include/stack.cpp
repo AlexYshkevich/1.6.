@@ -53,7 +53,7 @@ inline auto stack<T>::count() const noexcept->size_t {
 	
 T stack<T>::pop()
 {
-	if (count_ <= 0)
+	if (count_ == 0)
 	{
 		throw std::logic_error("Stack is empty!");
 	}
