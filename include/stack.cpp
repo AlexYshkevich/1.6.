@@ -1,90 +1,71 @@
-#include "Stack.hpp"
-#ifndef STACK_CPP
-#define STACK_CPP
-template <typename T>
-T* copy_with_new(const T * arr, size_t count, size_t array_size)
-{
-	T * stk = new T[array_size];
-	std::copy(arr, arr + count, stk);
-	return stk;
-};
-template <typename T>
-stack<T>::stack(): array_size_(1), count_(0), array_(new T[array_size_])
-{
-}
-template <typename T>
-size_t stack<T>::count() const
-{
-	return count_;
-}
-template <typename T>
-void stack<T>::push(T const &elem)
-{
+#include "stack.h"
 
-	if (count_ == array_size_)
-	{
-		array_size_ *= 2;
-		T * stk = copy_with_new(array_, count_, array_size_);
-		delete[] array_;
-		array_ = stk;
-		stk = nullptr;
-	}
-	array_[count_] = elem;
-	count_++;
+template <typename T>
+auto mem_copy(size_t count_m, size_t array_size_m, const T * tmp)->T* {
+	T *mass = new T[array_size_m];
+	copy(tmp,tmp+count_m,mass);
+	return mass; 
+}
 
+template<typename T>
+inline auto stack<T>::empty()->bool { 
+	if (this->count()) { return false; }
+	else { return true; }
 }
+
 template <typename T>
-T stack<T>::pop()
-{
-	if (count_ <= 0)
-	{
-		throw std::logic_error("Stack is empty!");
-	}
-	return array_[--count_];
-}
-template <typename T>
-const T& stack<T>::top()
-{
-	return array_[count_];
-}
-template <typename T>
-stack<T>::~stack()
+inline stack<T>::~stack()
 {
 	delete[] array_;
 }
 
-template <typename T>//конструктор копирования
-stack<T>::stack(const stack&tmp) :count_(tmp.count_), array_size_(tmp.array_size_), array_(copy_with_new(tmp.array_, tmp.count_, tmp.array_size_ )) {};
 template <typename T>
-stack<T>& stack<T>::operator=(const stack &obj) 
-{
+inline stack<T>::stack() :count_(0),array_size_(0),array_(nullptr){};
+
+template <typename T>
+inline auto stack<T>::push(T const &val)->void {
+	if (count_ == array_size_) {
+			size_t size = array_size_ * 2+ (array_size_==0);
+			T *tmp = mem_copy(count_,size,array_);
+			delete[] array_;
+			array_ = tmp;
+			array_size_=size;
+
+		}
+		array_[count_] = val;
+		count_++;
 	
-	if (this != &obj)
-	{
-		delete[] array_;
-	array_size_ = obj.array_size_;
-	count_ = obj.count_;
-	array_ = copy_with_new(obj.array_, count_, array_size_);
 	}
 
+
+template <typename T>
+inline stack<T>::stack(const stack&tmp) :count_(tmp.count_), array_size_(tmp.array_size_), array_(mem_copy(tmp.count_, tmp.array_size_, tmp.array_)) {}
+
+template <typename T>
+inline auto stack<T>::operator=(const stack&tmp)->stack& {
+	if (this != &tmp) {
+		delete[] array_;
+		count_ = tmp.count_;
+		array_size_ = tmp.array_size_;
+		array_ =mem_copy(tmp.count_, tmp.array_size_, tmp.array_);
+	}
 	return *this;
 }
 
-template<typename T>
-bool stack<T>::operator==(stack const & rhs) 
-{
-	if ((rhs.count_ != count_) || (rhs.array_size_ != array_size_)) {
-		return false;
-	}
-	else {
-		for (size_t i = 0; i < count_; i++) {
-			if (rhs.array_[i] != array_[i]) {
-				return false;
-			}
-		}
-	}
-	return true;
+template <typename T>
+inline auto stack<T>::count() const noexcept->size_t {
+	return count_;
 }
 
+template <typename T>
+inline auto stack<T>::pop()->T {
+	if (count_ == 0) throw logic_error("Empty!");
+	return --count_;
+}
 
-#endif
+template <typename T>
+inline auto stack<T>::top() const->T& {
+	if (count_ == 0) throw logic_error("Empty!");
+	return array_[count_];
+
+}
