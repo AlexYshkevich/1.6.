@@ -1,12 +1,18 @@
 #include "stack.h"
 
-
 template <typename T>
 auto mem_copy(size_t count_m, size_t array_size_m, const T * tmp)->T* {
 	T *mass = new T[array_size_m];
 	copy(tmp,tmp+count_m,mass);
 	return mass; 
 }
+
+template<typename T>
+inline auto stack<T>::empty()->bool { 
+	if (this->count()) { return false; }
+	else { return true; }
+}
+
 template <typename T>
 inline stack<T>::~stack()
 {
@@ -35,7 +41,7 @@ inline auto stack<T>::push(T const &val)->void {
 template <typename T>
 inline stack<T>::stack(const stack&tmp) :count_(tmp.count_), array_size_(tmp.array_size_), array_(mem_copy(tmp.count_, tmp.array_size_, tmp.array_)) {}
 
-template <typename T>
+template <typename T> 
 inline auto stack<T>::operator=(const stack&tmp)->stack& {
 	if (this != &tmp) {
 		delete[] array_;
@@ -51,12 +57,11 @@ inline auto stack<T>::count() const noexcept->size_t {
 	return count_;
 }
 
-template <typename T> 
+template <typename T>
 inline auto stack<T>::pop()->T {
 	if (count_ == 0) throw logic_error("Empty!");
-	return count_;
+	return --count_;
 }
-
 
 template <typename T>
 inline auto stack<T>::top() const->T& {
