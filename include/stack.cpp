@@ -47,7 +47,7 @@ inline stack<T>::stack(const stack&tmp) :count_(tmp.count_), array_size_(tmp.arr
  		delete[] array_;
  		count_ = tmp.count_;
  		array_size_ = tmp.array_size_;
- 		array_ =mem_copy(tmp.count_, tmp.array_size_, tmp.array_);
+ 		inline auto stack<T>::mem_copy(size_t count_m, size_t array_size_m, const T * tmp)->T* {
  	}
  	 return *this;
  }
