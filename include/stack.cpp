@@ -64,3 +64,4 @@ throw std::range_error("Empty stack");
 }
 return array_[--count_];
 }
+
