@@ -47,7 +47,7 @@ inline auto stack<T>::operator=(const stack&tmp)->stack& {
 		delete[] array_;
 		count_ = tmp.count_;
 		array_size_ = tmp.array_size_;
-		copy(tmp.array_, tmp.array_ + count_, array_);
+		array_ =mem_copy(tmp.count_, tmp.array_size_, tmp.array_);
 	}
 	return *this;
 }
