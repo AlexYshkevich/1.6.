@@ -7,6 +7,12 @@
   	return mass; 
   }
   
+ template<typename T>//пуст ли стэк или нет
+ inline auto stack<T>::empty()->bool { 
+ if (this->count()) { return false; }
+ else { return true; }
+ }
+
   template <typename T>//освобождение памяти
   inline stack<T>::~stack()
  {
