@@ -76,9 +76,9 @@
   }
   
   template <typename T>// уменьшение count_ 
- inline auto stack<T>::pop()->T {
+ inline auto stack<T>::pop()->void {
   	if (count_ == 0) throw std::logic_error("Empty!");
- return --count_;
+ --count_;
   }
   
   template <typename T>//удаление элемента
