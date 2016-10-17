@@ -1,4 +1,7 @@
  #include "stack.h" 
+ //__________________________________________________________________________________________________________________
+ //__________________________________________________________________________________________________________________
+ 
  
  template<typename T> // проверка на пустоту стэка 
  inline auto stack<T>::empty()->bool {
@@ -60,22 +63,31 @@
  template <typename T>//перегрузка оператора присваивания 
  inline auto stack<T>::operator=(const stack &tmp)->stack& {
  	if (this != &tmp) {
- 		delete[] ptr_; 
- 		ptr_ = mem_copy(tmp.count_, tmp.size_, tmp.ptr_);
- 		count_ = tmp.count_;
- 		size_ = tmp.size_;
- 		
+ 		(stack(tmp)).swap(*this);
  	}
  	return *this;
  }
+ template<typename T>
+ auto stack<T>::swap(stack & tmp) -> void {
+ 	std::swap(tmp.size_, size_);
+ 	std::swap(tmp.ptr_, ptr_);
+ 	std::swap(tmp.count_, count_);
+ }
+ 
  template <typename T>//возвращаем count_
  inline auto stack<T>::count() const noexcept->size_t {
  	return count_;
- }
- 
-  template <typename T>
-  inline auto stack<T>::pop()->T {
-  	if (count_ == 0) throw std::logic_error("Empty!");
- 	--count_;
-   return ptr_[count_];
   }
+  
+  template <typename T>// уменьшение count_ 
+ inline auto stack<T>::pop()->T {
+  	if (count_ == 0) throw std::logic_error("Empty!");
+ return --count_;
+  }
+  
+  template <typename T>//удаление элемента
+ inline auto stack<T>::top() const->T& {
+ 	if (count_ == 0) throw std::logic_error("Empty!");
+ 	return ptr_[count_];
+ 
+ }
