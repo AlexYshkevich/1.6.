@@ -1,22 +1,20 @@
 #include <iostream>
-using namespace std;
-
 template <typename T>
-class stack
+class stack 
 {
 public:
 	stack();/*noexcept*/
-	stack(const stack&); /*strong*/
+	stack(stack const &); /*strong*/
 	auto count() const noexcept->size_t;/*noexcept*/
 	auto push(T const &)->void;/*strong*/
-	auto pop()->void; /*strong*/
-	auto top() const->T&;/*strong*/
+	auto pop()->T;/*basic*/
+	//auto top() const->T&;/*strong*/
 	~stack(); 	/*noexcept*/
 	auto operator=(const stack&tmp)->stack&;/*strong*/
-	auto empty()->bool;	/*noexcept*/
-private:	
-	T * array_;
-	size_t array_size_;
+	auto empty()->bool;/*noexcept*/
+	private : 
+	T * ptr_;
+	size_t size_;
 	size_t count_;
-	auto swap(stack & tmp) -> void; /*noexcept*/
+
 };
