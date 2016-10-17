@@ -73,8 +73,9 @@
  	return count_;
  }
  
-  template <typename T>// уменьшение count_ 
+  template <typename T>
   inline auto stack<T>::pop()->T {
   	if (count_ == 0) throw std::logic_error("Empty!");
- 	return ptr_[--count_];
+ 	--count_;
+   return ptr_[count_];
   }
