@@ -2,7 +2,7 @@
 #include <catch.hpp>
 #include <iostream>
 using namespace std;
-
+ 
 SCENARIO("count", "[count]"){
   stack<int> s;
   s.push(1);
@@ -49,7 +49,6 @@ SCENARIO("empty", "[empty]"){
 SCENARIO("empty2", "[empty2]"){
   stack<int> s1;
   s1.push(1);
-  s1.top();
   s1.pop();
   REQUIRE(s1.empty()==true);
 }
@@ -58,9 +57,8 @@ SCENARIO("empty3", "[empty3]"){
   stack<int> s1;
   s1.push(1);
   s1.push(2);
-  s1.top();
   s1.pop();
-  
+  s1.top();
   
   REQUIRE(s1.empty()==false);
 }
