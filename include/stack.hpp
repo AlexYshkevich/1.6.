@@ -1,6 +1,5 @@
-#include <iostream>
-#include <stdexcept>
- 
+ #include <iostream>
+ #include <stdexcept>
  
  template<typename T>
  class allocator 
@@ -15,7 +14,7 @@
  	size_t size_;
  	size_t count_;
  };
-
+ 
  template <typename T1, typename T2>
  auto construct(T1 * ptr, T2 const & value)->void {
  	new(ptr) T1(value);
@@ -66,12 +65,12 @@
  	auto empty() const noexcept->bool;/*noexcept*/
  
  };
- 
-  template<typename T> 
- auto stack<T>::empty() const noexcept->bool {
-  	return (allocator<T>::count_ == 0);
-  }
   
+ template<typename T> 
+auto stack<T>::empty() const noexcept->bool {
+ 	return (allocator<T>::count_ == 0);
+ }
+ 
  template <typename T>
  stack<T>::~stack() {
  destroy(allocator<T>::ptr_, allocator<T>::ptr_ + allocator<T>::count_);};
@@ -90,7 +89,7 @@
  	construct(allocator<T>::ptr_ + allocator<T>::count_, val);
  	++allocator<T>::count_;
  }
- 
+  
  template <typename T>
  stack<T>::stack(stack const &tmp): allocator<T>(tmp.size_){
  	for (size_t i = 0; i < tmp.count_; i++) construct(allocator<T>::ptr_ + i, tmp.ptr_[i]);
@@ -104,7 +103,7 @@
  	}
  	return *this;
  }
- 
+  
  template <typename T>
  auto stack<T>::count() const noexcept->size_t {
  	return allocator<T>::count_;
@@ -120,6 +119,5 @@
  template <typename T>
  auto stack<T>::top() const->const T& {
  	if (allocator<T>::count_ == 0) throw std::logic_error("Empty!");
- 	return allocator<T>::ptr_[allocator<T>::count_-1];
- 
+ return allocator<T>::ptr_[allocator<T>::count_-1];
  }
