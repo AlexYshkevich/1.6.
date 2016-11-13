@@ -4,6 +4,9 @@
 #include <vector>
 #include <memory>
 
+
+
+
 class bitset
 {
 public:
@@ -41,6 +44,8 @@ bitset::bitset(size_t size) :
 	
 }
 
+
+
 auto bitset::reset(size_t index)->void {
 	
 	if (index <= size()) {
@@ -54,8 +59,11 @@ auto bitset::reset(size_t index)->void {
 	}
 }
 
-auto bitset::set(size_t index)->void {
 
+
+auto bitset::set(size_t index)->void {
+	
+	
 	if (index <= size()) {
 		if (test(index) != true) {
 			
@@ -67,7 +75,10 @@ auto bitset::set(size_t index)->void {
 	else {
 		throw std::out_of_range("Error");
 	}
+
+
 }
+
 
 auto bitset::test(size_t index) ->bool{
 	if (index <= size()) {
@@ -77,6 +88,11 @@ auto bitset::test(size_t index) ->bool{
 		throw std::out_of_range("Error");
 	}
 }
+
+
+
+//__________________________________________________________________________________________________________________
+//__________________________________________________________________________________________________________________
 
 template <typename T>
 class allocator
@@ -103,10 +119,17 @@ public:
 private:
 	auto destroy(T * first, T * last) /*noexcept*/ -> void;
 	
+
 	size_t size_;
 	T * ptr_;
 	std::unique_ptr<bitset> map_;
 };
+
+//__________________________________________________________________________________________________________________
+//__________________________________________________________________________________________________________________
+
+
+
 
 template <typename T>//конструктор с параметром 
 allocator<T>::allocator(size_t size): ptr_(static_cast<T *>(size == 0 ? nullptr : operator new(size * sizeof(T)))), size_(size), map_(std::make_unique<bitset>(size)){
@@ -142,6 +165,9 @@ auto allocator<T>::construct(T * ptr, T const & value)->void {
 	}
 	new(ptr) T(value);
 	map_->set(ptr - ptr_);
+	
+	
+	
 }
 
 template <typename T>//удаление всего ptr_
@@ -198,6 +224,12 @@ auto allocator<T>::count() const -> size_t {
 	return map_->counter();
 }
 
+
+
+
+//__________________________________________________________________________________________________________________
+//__________________________________________________________________________________________________________________
+
 template <typename T>
 class stack
 {
@@ -216,6 +248,14 @@ public:
 
 private:
 	allocator<T> allocate;
+
+	//auto throw_is_empty() const -> void;
+};
+//__________________________________________________________________________________________________________________
+//__________________________________________________________________________________________________________________
+
+
+
 template<typename T>
 auto stack<T>::empty() const->bool {
 	return (allocate.count() == 0);
@@ -225,6 +265,8 @@ auto stack<T>::empty() const->bool {
 template <typename T>
 stack<T>::stack(size_t size) : allocate(size) {};
 
+
+
 template <typename T>
 auto stack<T>::push(T const &val)->void {
 	if (allocate.full()) {
@@ -233,6 +275,8 @@ auto stack<T>::push(T const &val)->void {
 	allocate.construct(allocate.get() + allocate.count(), val);
 }
 
+
+
 template <typename T>
 auto stack<T>::operator=(const stack &tmp)->stack&  {
 	if (this != &tmp) {
@@ -240,6 +284,7 @@ auto stack<T>::operator=(const stack &tmp)->stack&  {
 	}
 	return *this;
 }
+
 
 template <typename T>
 auto stack<T>::count() const->size_t {
