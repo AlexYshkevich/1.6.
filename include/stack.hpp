@@ -209,7 +209,6 @@ auto allocator<T>::count() const -> size_t {
 	return map_->counter();
 }
 
-
 template <typename T>
 class stack
 {
@@ -260,7 +259,6 @@ auto stack<T>::operator=(const stack &tmp)->stack&  {
 	}
 	return *this;
 }
-
 
 template <typename T>
 auto stack<T>::count() const->size_t {
