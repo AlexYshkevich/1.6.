@@ -1,51 +1,48 @@
 #include <iostream>
  #include <stdexcept>
- 
- 
- template<typename T>
- class allocator 
+ #pragma once
+ #include <string>
+  
+ #define MULTIPLIER 2 
+  
+  template <typename T1, typename T2>
+ void construct(T1 * ptr, T2 const & value) {
+ 	new (ptr)T1(value);
+  }
+  
+  template <typename T>
+ void destroy(T * ptr){
+ 	ptr->~T();
+  }
+  
+  template <typename FwdIter>
+ void destroy(FwdIter first, FwdIter last)
+  {
+ for (; first != last; ++first)
+ {
+  		destroy(&*first);
+  	}
+  }
+  template<typename T>
+ class allocator
  {
  protected:
- 	allocator(size_t size = 0);
- 	~allocator();
- 	auto swap(allocator& other)->void;
- 	allocator(allocator const&) = delete;
- 	auto operator=(allocator const&)->allocator& = delete;
- 	T * ptr_;
- 	size_t size_;
+ 	T* array_;
+ 	size_t array_size_;
  	size_t count_;
- };
  
- template <typename T1, typename T2>
- auto construct(T1 * ptr, T2 const & value)->void {
- 	new(ptr) T1(value);
- }
+ 	allocator(size_t size = 0);
+ 	allocator(const allocator & obj) = delete;
+ 	~allocator();
+ 	auto swap(allocator & obj) ->void;
+ 	auto operator = (const allocator &)->allocator & = delete;
+  };
+  
+  template <typename T>
+ allocator<T>::allocator(size_t size) : array_((T*)(operator new(size*sizeof(T)))), array_size_(size), count_(0){};
  
- template <typename T>
- void destroy(T * ptr) noexcept
- {
- 	ptr->~T();
- }
- 
- template <typename FwdIter>
- void destroy(FwdIter first, FwdIter last) noexcept
- {
- 	for (; first != last; ++first) {
- 		destroy(&*first);
- 	}
- }
- 
- template <typename T>
- allocator<T>::allocator(size_t size) : ptr_(static_cast<T *>(size == 0 ? nullptr : operator new(size * sizeof(T)))), size_(size), count_(0) {
- };
- 
- template <typename T>
- allocator<T>::~allocator() {
- operator delete(ptr_);
- };
- 
- template <typename T>
- auto allocator<T>::swap(allocator& other)->void {
+ template<typename T>
+ auto allocator<T>::swap(allocator & other) -> void
  	std::swap(ptr_, other.ptr_);
  	std::swap(size_, other.size_);
  	std::swap(count_, other.count_);
