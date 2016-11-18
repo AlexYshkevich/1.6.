@@ -158,11 +158,15 @@ auto allocator<T>::construct(T * ptr, T const & value)->void {
 
 template <typename T>//удаление всего ptr_
 auto allocator<T>::destroy(T * ptr)->void
+if (ptr<ptr_ || ptr >=ptr_ + size_)
 {
-
-	ptr->~T();
-	map_->reset(ptr - ptr_);	
+throw("bad_index");
 }
+	ptr->~T();
+	if (map->test(ptr - ptr_))
+	{
+		ptr ->~T();
+		|map->reset(ptr-ptr_);}
 
 
 template <typename T>//удаление диапазона
