@@ -5,9 +5,6 @@
 
 #define MULTIPLIER 2 
 
-
-
-
 template <typename T1, typename T2>
 void construct(T1 * ptr, T2 const & value) {
 	new (ptr)T1(value);
