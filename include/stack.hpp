@@ -2,7 +2,6 @@
 #include <stdexcept>
 #pragma once
 #include <string>
-
 #define MULTIPLIER 2 
     
     template <typename T1, typename T2>
