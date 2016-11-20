@@ -4,6 +4,9 @@
 #include <vector>
 #include <memory>
 
+
+
+
 class bitset
 {
 public:
@@ -40,6 +43,8 @@ bitset::bitset(size_t size) :
 	size_(size),counter_(0) {
 	
 }
+
+
 
 auto bitset::reset(size_t index)->void {
 	
@@ -83,6 +88,7 @@ auto bitset::test(size_t index) ->bool{
 		throw std::out_of_range("Error");
 	}
 }
+
 
 template <typename T>
 class allocator
@@ -130,7 +136,7 @@ allocator<T>::allocator(allocator const & tmp) :allocator<T>(tmp.size_){
 template <typename T>//деструктор
 allocator<T>::~allocator() {
 	if (map_->counter() > 0) {
-		destroy(ptr_, ptr_ + map_->counter());
+		destroy(ptr_, ptr_ + map_->size());
 	}
 };
 
@@ -259,6 +265,7 @@ auto stack<T>::operator=(const stack &tmp)->stack&  {
 	}
 	return *this;
 }
+
 
 template <typename T>
 auto stack<T>::count() const->size_t {
