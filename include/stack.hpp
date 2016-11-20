@@ -162,3 +162,4 @@ stack<T>& stack<T>::operator=(const stack<T> &obj) {
  	}
  	return false;
   }
+
