@@ -52,8 +52,8 @@ auto allocator<T>::swap(allocator & other) -> void
 
 template<typename T>
 allocator<T>::~allocator()
-{
-	destroy(array_, array_ + array_size_);
+{ if (count_>0){
+	destroy(array_, array_ + array_size_);}
 	operator delete(array_);
 }
 
@@ -90,9 +90,6 @@ template <typename T>
 size_t stack<T>::count() const {
 	return allocator<T>::count_;
 }
-
-template <typename T>
-stack<T>::~stack(){};
 
 template <typename T>
 size_t stack<T>::array_size() const {
