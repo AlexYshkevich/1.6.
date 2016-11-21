@@ -92,6 +92,9 @@ size_t stack<T>::count() const {
 }
 
 template <typename T>
+stack<T>::~stack(){};
+
+template <typename T>
 size_t stack<T>::array_size() const {
 	return allocator<T>::array_size_;
 }
